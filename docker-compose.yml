@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: gct_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: gct_conge
+      POSTGRES_USER: ${DB_USER:-gct_user}
+      POSTGRES_PASSWORD: ${DB_PASS:-gct_pass}
+    ports:
+      - "5432:5432"
+    volumes:
+      - gct_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-gct_user} -d gct_conge"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - gct-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gct_backend
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gct_conge
+      DB_USER: ${DB_USER:-gct_user}
+      DB_PASS: ${DB_PASS:-gct_pass}
+      JWT_SECRET: ${JWT_SECRET:-404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USER: ${MAIL_USER:-contact@gct.tn}
+      MAIL_PASS: ${MAIL_PASS:-secret}
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - gct-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gct_frontend
+    restart: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - gct-network
+
+volumes:
+  gct_pgdata:
+
+networks:
+  gct-network:
+    driver: bridge

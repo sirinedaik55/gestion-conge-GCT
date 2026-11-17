@@ -1,0 +1,25 @@
+{
+  "app_title": "Groupe Chimique Tunisien",
+  "app_subtitle": "Système de Gestion des Congés",
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "conges": "Mes Congés",
+    "demander": "Nouvelle Demande",
+    "validations": "Demandes à valider",
+    "calendrier": "Planning / Calendrier",
+    "employes": "Gestion Employés",
+    "departements": "Départements",
+    "logout": "Déconnexion"
+  },
+  "status": {
+    "EN_ATTENTE": "En attente du chef",
+    "APPROUVE_CHEF": "Visé par chef (attente RH)",
+    "APPROUVE": "Approuvé",
+    "REJETE": "Rejeté",
+    "ANNULE": "Annulé"
+  },
+  "rules": {
+    "maternity_auto": "Le congé de maternité est validé automatiquement sans délai.",
+    "max_concurrent": "Maximum 2 personnes en congé en même temps par département."
+  }
+}
