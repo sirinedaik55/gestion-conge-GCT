@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatDividerModule } from '@angular/material/divider';
 import { AuthService } from '../../../core/auth/auth.service';
 import { TranslationService } from '../../../core/services/translation.service';
 import { NotificationService } from '../../../core/services/notification.service';
@@ -12,7 +13,7 @@ import { Notification } from '../../../core/models/notification.model';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule, MatMenuModule, MatBadgeModule],
+  imports: [CommonModule, RouterModule, MatIconModule, MatMenuModule, MatBadgeModule, MatDividerModule],
   template: `
     <header class="navbar">
       <div class="brand">

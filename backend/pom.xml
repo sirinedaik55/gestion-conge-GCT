@@ -44,10 +44,15 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-        <!-- PostgreSQL & Flyway -->
+        <!-- PostgreSQL & Flyway & H2 (pour dev rapide sans Docker) -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>

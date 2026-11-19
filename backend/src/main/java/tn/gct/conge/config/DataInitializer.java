@@ -27,6 +27,31 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        // Initialiser les départements s'ils n'existent pas encore
+        if (departementRepository.count() == 0) {
+            departementRepository.saveAll(List.of(
+                    Departement.builder().nom("Direction Générale").code("DIR_GEN").description("Direction Générale et Stratégie du GCT").maxAbsencesSimultanees(2).build(),
+                    Departement.builder().nom("Ressources Humaines").code("RH").description("Direction des Ressources Humaines").maxAbsencesSimultanees(2).build(),
+                    Departement.builder().nom("Usine Phosphorique Mdhilla").code("USINE_MDH").description("Unité de production phosphorique - Gafsa").maxAbsencesSimultanees(2).build(),
+                    Departement.builder().nom("Usine d'Engrais Gabès").code("USINE_GAB").description("Complexe de transformation - Gabès").maxAbsencesSimultanees(2).build(),
+                    Departement.builder().nom("Maintenance et Sécurité").code("MAINT_SEC").description("Direction Technique Maintenance").maxAbsencesSimultanees(2).build(),
+                    Departement.builder().nom("Systèmes d'Information & Digitalisation").code("IT").description("Département Informatique").maxAbsencesSimultanees(2).build(),
+                    Departement.builder().nom("Approvisionnement & Logistique").code("LOGISTIQUE").description("Direction Achats et Logistique").maxAbsencesSimultanees(2).build()
+            ));
+        }
+
+        // Initialiser les types de congés s'ils n'existent pas encore
+        if (typeCongeRepository.count() == 0) {
+            typeCongeRepository.saveAll(List.of(
+                    TypeConge.builder().nom("Congé Annuel Payé").code("ANNUEL").description("Congé annuel payé réglementaire").joursMaxParAn(30).autoApprouve(false).justificatifRequis(false).cumulable(true).build(),
+                    TypeConge.builder().nom("Congé de Maladie Ordinaire").code("MALADIE").description("Arrêt maladie prescrit par médecin").joursMaxParAn(90).autoApprouve(false).justificatifRequis(true).cumulable(false).build(),
+                    TypeConge.builder().nom("Congé de Maternité").code("MATERNITE").description("Congé légal de maternité approuvé automatiquement dès soumission").joursMaxParAn(98).autoApprouve(true).justificatifRequis(false).cumulable(false).build(),
+                    TypeConge.builder().nom("Congé de Paternité").code("PATERNITE").description("Congé spécial à l'occasion d'une naissance").joursMaxParAn(7).autoApprouve(false).justificatifRequis(true).cumulable(false).build(),
+                    TypeConge.builder().nom("Congé sans Solde").code("SANS_SOLDE").description("Congé pour convenances personnelles sans rémunération").joursMaxParAn(30).autoApprouve(false).justificatifRequis(false).cumulable(false).build(),
+                    TypeConge.builder().nom("Congé Exceptionnel / Familial").code("EXCEPTIONNEL").description("Mariage, décès, évènements familiaux").joursMaxParAn(7).autoApprouve(false).justificatifRequis(true).cumulable(false).build()
+            ));
+        }
+
         if (utilisateurRepository.count() == 0) {
             log.info("Initialisation des comptes par défaut pour le Groupe Chimique Tunisien...");
 

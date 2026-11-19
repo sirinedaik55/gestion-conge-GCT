@@ -6,6 +6,8 @@ server:
 spring:
   application:
     name: gestion-conge-gct
+  main:
+    allow-circular-references: true
 
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/gct_conge}
